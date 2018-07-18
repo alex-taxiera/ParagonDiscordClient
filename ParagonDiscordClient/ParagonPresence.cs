@@ -1,9 +1,6 @@
 ﻿using DiscordRPC;
-using DiscordRPC.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ParagonDiscordClient
@@ -28,10 +25,10 @@ namespace ParagonDiscordClient
 
     public ParagonPresence()
     {
-      client = new DiscordRpcClient("468591679599935490", true, 0)
-      {
-        Logger = new ConsoleLogger() { Level = DiscordRPC.Logging.LogLevel.Warning, Colored = true }
-      };
+      client = new DiscordRpcClient("468591679599935490", true, -1);
+      //{
+      //  Logger = new ConsoleLogger() { Level = DiscordRPC.Logging.LogLevel.Warning, Colored = true }
+      //};
       client.Initialize();
       client.SetPresence(MenuPresence());
     }
