@@ -37,6 +37,7 @@ namespace ParagonDiscordClient
       this.Play = new System.Windows.Forms.Button();
       this.heroBox = new System.Windows.Forms.ComboBox();
       this.mapBox = new System.Windows.Forms.ComboBox();
+      this.Forfeit = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // heroLabel
@@ -89,11 +90,22 @@ namespace ParagonDiscordClient
       this.mapBox.Size = new System.Drawing.Size(121, 21);
       this.mapBox.TabIndex = 1;
       // 
+      // ForfeitButton
+      // 
+      this.Forfeit.Location = new System.Drawing.Point(200, 88);
+      this.Forfeit.Name = "ForfeitButton";
+      this.Forfeit.Size = new System.Drawing.Size(32, 23);
+      this.Forfeit.TabIndex = 5;
+      this.Forfeit.Text = "FF";
+      this.Forfeit.UseVisualStyleBackColor = true;
+      this.Forfeit.Enabled = false;
+      // 
       // PlayParagonForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(244, 121);
+      this.Controls.Add(this.Forfeit);
       this.Controls.Add(this.Play);
       this.Controls.Add(this.mapLabel);
       this.Controls.Add(this.heroLabel);
@@ -104,6 +116,7 @@ namespace ParagonDiscordClient
       this.MinimumSize = new System.Drawing.Size(260, 160);
       this.Name = "PlayParagonForm";
       this.Text = "Play Paragon";
+      this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PlayParagonForm_FormClosed);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -115,6 +128,7 @@ namespace ParagonDiscordClient
     private Button Play;
     private ComboBox heroBox;
     private ComboBox mapBox;
+    private Button Forfeit;
   }
 }
 

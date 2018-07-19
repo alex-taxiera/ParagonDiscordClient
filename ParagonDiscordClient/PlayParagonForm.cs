@@ -6,7 +6,7 @@ namespace ParagonDiscordClient
 {
   public partial class PlayParagonForm : Form
   {
-    ParagonPresence presence = new ParagonPresence();
+    ParagonPresence presence;
     private static List<KeyValuePair<string, string>> smallAssets = new List<KeyValuePair<string, string>>
     {
       new KeyValuePair<string, string>("aurora", "Aurora"),
@@ -55,6 +55,17 @@ namespace ParagonDiscordClient
     public PlayParagonForm()
     {
       InitializeComponent();
+      presence = new ParagonPresence(
+        this,
+        new KeyValuePair<string, Button>[]
+        {
+          new KeyValuePair<string, Button>("forfeit", Forfeit),
+          new KeyValuePair<string, Button>("play", Play)
+        },
+        new KeyValuePair<string, CheckBox>[]
+        {
+        }
+      );
       mapBox.DataSource = new BindingSource(largeAssets, null);
       mapBox.DisplayMember = "Value";
       mapBox.ValueMember = "Key";
@@ -67,9 +78,12 @@ namespace ParagonDiscordClient
     {
       KeyValuePair<string, string> selectedHero = (KeyValuePair<string, string>)heroBox.SelectedItem;
       KeyValuePair<string, string> selectedMap = (KeyValuePair<string, string>)mapBox.SelectedItem;
-      Play.Enabled = false;
       await presence.MatchmakeAndPlayAsync(selectedHero, selectedMap);
-      Play.Enabled = true;
+    }
+
+    private void PlayParagonForm_FormClosed(object sender, FormClosedEventArgs e)
+    {
+      presence.Close();
     }
   }
 }
