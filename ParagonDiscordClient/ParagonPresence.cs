@@ -47,16 +47,15 @@ namespace ParagonDiscordClient
       EnterMenu();
     }
 
-    public async Task MatchmakeAndPlayAsync(KeyValuePair<string, string> selectedHero, KeyValuePair<string, string> selectedMap)
+    public async Task MatchmakeAndPlayAsync(KeyValuePair<string, string> hero, KeyValuePair<string, string> map)
     {
       DisablePlay();
       do
       {
-        client.SetPresence(QueuePresence());
-        await Task.Delay(45000); // 45000
-        client.SetPresence(DraftPresence());
-        await Task.Delay(30000); // 30000
-        await EnterMatch(selectedMap.Key, selectedMap.Value, selectedHero.Key, selectedHero.Value);
+        int matchLength = rng.Next(1500000, 2100000);
+        await EnterQueue(45000);
+        await EnterDraft(30000);
+        await EnterMatch(matchLength, map.Key, map.Value, hero.Key, hero.Value);
         EnterMenu();
         await Task.Delay(5000);
       } while (false); //FindCheckByName("loop").Checked
@@ -116,28 +115,32 @@ namespace ParagonDiscordClient
     {
       client.SetPresence(new RichPresence()
       {
-        Details = "In Menus...",
+        Details = "In Menus",
         State = "Solo",
         Assets = menuAssets
       });
     }
-    private RichPresence QueuePresence() => new RichPresence()
+    private async Task EnterQueue(int queueTime)
     {
-      Details = "In Queue",
-      State = "Solo",
-      Assets = menuAssets,
-      Timestamps = new Timestamps()
+      client.SetPresence(new RichPresence()
       {
-        Start = DateTime.UtcNow
-      }
-    };
-    private RichPresence DraftPresence() => new RichPresence()
+        Details = "In Queue",
+        State = "Solo",
+        Assets = menuAssets
+      });
+      await Task.Delay(queueTime);
+    }
+    private async Task EnterDraft(int draftLength)
     {
-      Details = "Drafting...",
-      State = "Solo",
-      Assets = draftAssets
-    };
-    private async Task EnterMatch(string mapKey, string mapText, string heroKey, string heroText)
+      client.SetPresence(new RichPresence()
+      {
+        Details = "Drafting...",
+        State = "Solo",
+        Assets = draftAssets
+      });
+      await Task.Delay(draftLength);
+    }
+    private async Task EnterMatch(int matchLength, string mapKey, string mapText, string heroKey, string heroText)
     {
       client.SetPresence(new RichPresence()
       {
@@ -155,7 +158,6 @@ namespace ParagonDiscordClient
           Start = DateTime.UtcNow
         }
       });
-      int matchLength = rng.Next(1500000, 2100000);
       playing = true;
       EnableForfeit();
       for (int i = 0; i < matchLength / 1000; i++)
