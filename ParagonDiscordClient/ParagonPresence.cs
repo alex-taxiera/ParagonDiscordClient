@@ -10,10 +10,23 @@ namespace ParagonDiscordClient
   {
     private PlayParagonForm form;
     private static DiscordRpcClient client;
+    private RichPresence current = new RichPresence()
+    {
+      Details = "",
+      State = "",
+      Assets = new Assets(),
+      Timestamps = new Timestamps(),
+      Party = new Party()
+      {
+        Size = 1,
+        Max = maxParty
+      }
+    };
     private Random rng = new Random();
     private bool playing = false;
     private KeyValuePair<string, Button>[] buttons;
     private KeyValuePair<string, CheckBox>[] checks;
+    private static int maxParty = 5;
     private static Assets menuAssets = new Assets()
     {
       LargeImageKey = "menu",
@@ -63,55 +76,47 @@ namespace ParagonDiscordClient
       } while (FindCheckByName("loop").Checked);
       EnablePlay();
     }
-
+    public void UpdateParty(int partySize)
+    {
+      current.Party.Size = partySize;
+      client.SetPresence(BuildPresence());
+    }
     // GAME WORKFLOW //
     private void EnterMenu()
     {
-      client.SetPresence(new RichPresence()
-      {
-        Details = "In Menus",
-        State = "Solo",
-        Assets = menuAssets
-      });
+      current.Details = "In Menus";
+      current.Assets = menuAssets;
+      client.SetPresence(BuildPresence());
     }
     private async Task EnterQueue(int queueTime)
     {
-      client.SetPresence(new RichPresence()
-      {
-        Details = "In Queue",
-        State = "Solo",
-        Assets = menuAssets
-      });
+      current.Details = "In Queue";
+      current.Assets = menuAssets;
+      client.SetPresence(BuildPresence());
       await Task.Delay(queueTime);
     }
     private async Task EnterDraft(int draftLength)
     {
-      client.SetPresence(new RichPresence()
-      {
-        Details = "Drafting...",
-        State = "Solo",
-        Assets = draftAssets
-      });
+      current.Details = "Drafting";
+      current.Assets = draftAssets;
+      client.SetPresence(BuildPresence());
       await Task.Delay(draftLength);
     }
     private async Task EnterMatch(int matchLength, string mapKey, string mapText, string heroKey, string heroText)
     {
-      client.SetPresence(new RichPresence()
+      current.Details = "In Game";
+      current.Assets = new Assets()
       {
-        Details = "In a match",
-        State = "Solo",
-        Assets = new Assets()
-        {
-          LargeImageKey = mapKey,
-          LargeImageText = "Playing on " + mapText,
-          SmallImageKey = heroKey,
-          SmallImageText = "Playing as " + heroText
-        },
-        Timestamps = new Timestamps()
-        {
-          Start = DateTime.UtcNow
-        }
-      });
+        LargeImageKey = mapKey,
+        LargeImageText = "Playing on " + mapText,
+        SmallImageKey = heroKey,
+        SmallImageText = "Playing as " + heroText
+      };
+      current.Timestamps = new Timestamps()
+      {
+        Start = DateTime.UtcNow
+      };
+      client.SetPresence(BuildPresence());
       playing = true;
       EnableForfeit();
       for (int i = 0; i < matchLength / 1000; i++)
@@ -185,6 +190,22 @@ namespace ParagonDiscordClient
     // UTILITIES //
     private Button FindButtonByName(string name) => Array.Find(buttons, (KeyValuePair<string, Button> b) => b.Key == name).Value;
     private CheckBox FindCheckByName(string name) => Array.Find(checks, (KeyValuePair<string, CheckBox> b) => b.Key == name).Value;
+    private RichPresence BuildPresence()
+    {
+      return new RichPresence()
+      {
+        Details = current.Details,
+        State = current.Party.Size > 1 ? "In a Party" : "Solo",
+        Party = new Party()
+        {
+          ID = current.Party.Size > 1 ? "xyz" : null,
+          Size = current.Party.Size,
+          Max = maxParty
+        },
+        Assets = current.Assets,
+        Timestamps = current.Timestamps
+      };
+    }
     // END UTILITIES //
   }
 }
