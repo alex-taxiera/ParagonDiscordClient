@@ -51,13 +51,13 @@ namespace ParagonDiscordClient
       DisablePlay();
       do
       {
-        int matchLength = rng.Next(1500000, 2100000);
         await EnterQueue(45000);
         await EnterDraft(30000);
-        await EnterMatch(matchLength, map.Key, map.Value, hero.Key, hero.Value);
+        await EnterMatch(rng.Next(1500000, 2100000), map.Key, map.Value, hero.Key, hero.Value);
         EnterMenu();
+        // Requeue/match ending delay
         await Task.Delay(5000);
-      } while (false); //FindCheckByName("loop").Checked
+      } while (FindCheckByName("loop").Checked);
       EnablePlay();
     }
 
@@ -117,7 +117,6 @@ namespace ParagonDiscordClient
         await Task.Delay(1000);
       }
       DisableForfeit();
-      EnablePlay();
     }
     // END GAME WORKFLOW //
 
