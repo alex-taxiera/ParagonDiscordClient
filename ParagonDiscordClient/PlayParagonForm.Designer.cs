@@ -38,6 +38,7 @@ namespace ParagonDiscordClient
       this.heroBox = new System.Windows.Forms.ComboBox();
       this.mapBox = new System.Windows.Forms.ComboBox();
       this.Forfeit = new System.Windows.Forms.Button();
+      this.loopCheck = new System.Windows.Forms.CheckBox();
       this.SuspendLayout();
       // 
       // heroLabel
@@ -63,7 +64,7 @@ namespace ParagonDiscordClient
       // Play
       // 
       this.Play.Anchor = System.Windows.Forms.AnchorStyles.None;
-      this.Play.Location = new System.Drawing.Point(56, 88);
+      this.Play.Location = new System.Drawing.Point(56, 112);
       this.Play.Name = "Play";
       this.Play.Size = new System.Drawing.Size(136, 23);
       this.Play.TabIndex = 4;
@@ -90,21 +91,32 @@ namespace ParagonDiscordClient
       this.mapBox.Size = new System.Drawing.Size(121, 21);
       this.mapBox.TabIndex = 1;
       // 
-      // ForfeitButton
+      // Forfeit
       // 
-      this.Forfeit.Location = new System.Drawing.Point(200, 88);
-      this.Forfeit.Name = "ForfeitButton";
+      this.Forfeit.Enabled = false;
+      this.Forfeit.Location = new System.Drawing.Point(200, 112);
+      this.Forfeit.Name = "Forfeit";
       this.Forfeit.Size = new System.Drawing.Size(32, 23);
       this.Forfeit.TabIndex = 5;
       this.Forfeit.Text = "FF";
       this.Forfeit.UseVisualStyleBackColor = true;
-      this.Forfeit.Enabled = false;
+      // 
+      // loopCheck
+      // 
+      this.loopCheck.AutoSize = true;
+      this.loopCheck.Location = new System.Drawing.Point(8, 80);
+      this.loopCheck.Name = "loopCheck";
+      this.loopCheck.Size = new System.Drawing.Size(83, 17);
+      this.loopCheck.TabIndex = 6;
+      this.loopCheck.Text = "Auto Queue";
+      this.loopCheck.UseVisualStyleBackColor = true;
       // 
       // PlayParagonForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(244, 121);
+      this.ClientSize = new System.Drawing.Size(244, 141);
+      this.Controls.Add(this.loopCheck);
       this.Controls.Add(this.Forfeit);
       this.Controls.Add(this.Play);
       this.Controls.Add(this.mapLabel);
@@ -112,8 +124,8 @@ namespace ParagonDiscordClient
       this.Controls.Add(this.mapBox);
       this.Controls.Add(this.heroBox);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-      this.MaximumSize = new System.Drawing.Size(260, 160);
-      this.MinimumSize = new System.Drawing.Size(260, 160);
+      this.MaximumSize = new System.Drawing.Size(260, 180);
+      this.MinimumSize = new System.Drawing.Size(260, 180);
       this.Name = "PlayParagonForm";
       this.Text = "Play Paragon";
       this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PlayParagonForm_FormClosed);
@@ -129,6 +141,7 @@ namespace ParagonDiscordClient
     private ComboBox heroBox;
     private ComboBox mapBox;
     private Button Forfeit;
+    private CheckBox loopCheck;
   }
 }
 
