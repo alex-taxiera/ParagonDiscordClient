@@ -41,12 +41,11 @@ namespace ParagonDiscordClient
       client.OnReady += (sender, e) => DisplayMessage("Get ready for a fight!");
       client.OnError += (sender, e) => DisplayMessage(e.Message);
       #pragma warning disable CS4014
-      UpdateLoopAsync();
+      UpdateLoop();
       #pragma warning restore CS4014
       client.Initialize();
       EnterMenu();
     }
-
     public async Task MatchmakeAndPlayAsync(KeyValuePair<string, string> hero, KeyValuePair<string, string> map)
     {
       DisablePlay();
@@ -61,56 +60,8 @@ namespace ParagonDiscordClient
       } while (false); //FindCheckByName("loop").Checked
       EnablePlay();
     }
-    public void Close() => client.Dispose();
-    private void DisplayMessage(string message)
-    {
-      using (new CenterWindow(form))
-      {
-        MessageBox.Show(message);
-      }
-    }
-    private void EnablePlay()
-    {
-      Button play = FindButtonByName("play");
-      if (play.Enabled == false)
-      {
-        play.Enabled = true;
-      }
-    }
-    private void DisablePlay()
-    {
-      Button play = FindButtonByName("play");
-      if (play.Enabled == true)
-      {
-        play.Enabled = false;
-      }
-    }
-    private void EnableForfeit()
-    {
-      Button ff = FindButtonByName("forfeit");
-      if (ff.Enabled == false)
-      {
-        ff.Enabled = true;
-      }
-    }
-    private void DisableForfeit()
-    {
-      Button ff = FindButtonByName("forfeit");
-      if (ff.Enabled == true)
-      {
-        ff.Enabled = false;
-      }
-    }
-    private Button FindButtonByName(string name) => Array.Find(buttons, (KeyValuePair<string, Button> b) => b.Key == name).Value;
-    private CheckBox FindCheckByName(string name) => Array.Find(checks, (KeyValuePair<string, CheckBox> b) => b.Key == name).Value;
-    private async Task UpdateLoopAsync()
-    {
-      while (true)
-      {
-        client.Invoke();
-        await Task.Delay(500);
-      }
-    }
+
+    // GAME WORKFLOW //
     private void EnterMenu()
     {
       client.SetPresence(new RichPresence()
@@ -168,10 +119,70 @@ namespace ParagonDiscordClient
       DisableForfeit();
       EnablePlay();
     }
+    // END GAME WORKFLOW //
+
+    // FORM CONTROL //
     private void Forfeit_Click(object sender, EventArgs e)
     {
       playing = false;
       DisableForfeit();
     }
+    private void DisplayMessage(string message)
+    {
+      using (new CenterWindow(form))
+      {
+        MessageBox.Show(message);
+      }
+    }
+    private void EnablePlay()
+    {
+      Button play = FindButtonByName("play");
+      if (play.Enabled == false)
+      {
+        play.Enabled = true;
+      }
+    }
+    private void DisablePlay()
+    {
+      Button play = FindButtonByName("play");
+      if (play.Enabled == true)
+      {
+        play.Enabled = false;
+      }
+    }
+    private void EnableForfeit()
+    {
+      Button ff = FindButtonByName("forfeit");
+      if (ff.Enabled == false)
+      {
+        ff.Enabled = true;
+      }
+    }
+    private void DisableForfeit()
+    {
+      Button ff = FindButtonByName("forfeit");
+      if (ff.Enabled == true)
+      {
+        ff.Enabled = false;
+      }
+    }
+    // END FORM CONTROL //
+
+    // RPC CLIENT HELPERS //
+    public void Close() => client.Dispose();
+    private async Task UpdateLoop()
+    {
+      while (true)
+      {
+        client.Invoke();
+        await Task.Delay(500);
+      }
+    }
+    // END RPC CLIENT HELPERS //
+
+    // UTILITIES //
+    private Button FindButtonByName(string name) => Array.Find(buttons, (KeyValuePair<string, Button> b) => b.Key == name).Value;
+    private CheckBox FindCheckByName(string name) => Array.Find(checks, (KeyValuePair<string, CheckBox> b) => b.Key == name).Value;
+    // END UTILITIES //
   }
 }
