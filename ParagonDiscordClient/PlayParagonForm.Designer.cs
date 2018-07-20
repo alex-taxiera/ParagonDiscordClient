@@ -75,6 +75,7 @@ namespace ParagonDiscordClient
       // heroBox
       // 
       this.heroBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.heroBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.heroBox.FormattingEnabled = true;
       this.heroBox.Location = new System.Drawing.Point(112, 16);
       this.heroBox.Name = "heroBox";
@@ -85,6 +86,7 @@ namespace ParagonDiscordClient
       // mapBox
       // 
       this.mapBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.mapBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.mapBox.FormattingEnabled = true;
       this.mapBox.Location = new System.Drawing.Point(112, 48);
       this.mapBox.Name = "mapBox";
