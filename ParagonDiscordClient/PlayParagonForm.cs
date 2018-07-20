@@ -86,5 +86,10 @@ namespace ParagonDiscordClient
     {
       presence.Close();
     }
+
+    private void PartyBox_SelectedValueChanged(object sender, EventArgs e)
+    {
+      presence.UpdateParty(Int32.Parse(PartyBox.SelectedItem.ToString()));
+    }
   }
 }
