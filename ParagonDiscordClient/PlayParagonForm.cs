@@ -64,6 +64,7 @@ namespace ParagonDiscordClient
         },
         new KeyValuePair<string, CheckBox>[]
         {
+          new KeyValuePair<string, CheckBox>("loop", loopCheck)
         }
       );
       mapBox.DataSource = new BindingSource(largeAssets, null);
