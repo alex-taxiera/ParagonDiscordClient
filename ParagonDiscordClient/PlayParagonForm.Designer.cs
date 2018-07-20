@@ -39,13 +39,15 @@ namespace ParagonDiscordClient
       this.mapBox = new System.Windows.Forms.ComboBox();
       this.Forfeit = new System.Windows.Forms.Button();
       this.loopCheck = new System.Windows.Forms.CheckBox();
+      this.partyBox = new System.Windows.Forms.ComboBox();
+      this.partyLabel = new System.Windows.Forms.Label();
       this.SuspendLayout();
       // 
       // heroLabel
       // 
-      this.heroLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.heroLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
       this.heroLabel.AutoSize = true;
-      this.heroLabel.Location = new System.Drawing.Point(8, 16);
+      this.heroLabel.Location = new System.Drawing.Point(8, 20);
       this.heroLabel.Name = "heroLabel";
       this.heroLabel.Size = new System.Drawing.Size(69, 13);
       this.heroLabel.TabIndex = 2;
@@ -53,9 +55,9 @@ namespace ParagonDiscordClient
       // 
       // mapLabel
       // 
-      this.mapLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.mapLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
       this.mapLabel.AutoSize = true;
-      this.mapLabel.Location = new System.Drawing.Point(8, 48);
+      this.mapLabel.Location = new System.Drawing.Point(8, 52);
       this.mapLabel.Name = "mapLabel";
       this.mapLabel.Size = new System.Drawing.Size(67, 13);
       this.mapLabel.TabIndex = 3;
@@ -63,7 +65,8 @@ namespace ParagonDiscordClient
       // 
       // Play
       // 
-      this.Play.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.Play.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.Play.Location = new System.Drawing.Point(56, 112);
       this.Play.Name = "Play";
       this.Play.Size = new System.Drawing.Size(136, 23);
@@ -74,7 +77,7 @@ namespace ParagonDiscordClient
       // 
       // heroBox
       // 
-      this.heroBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.heroBox.Anchor = System.Windows.Forms.AnchorStyles.Right;
       this.heroBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.heroBox.FormattingEnabled = true;
       this.heroBox.Location = new System.Drawing.Point(112, 16);
@@ -85,7 +88,7 @@ namespace ParagonDiscordClient
       // 
       // mapBox
       // 
-      this.mapBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+      this.mapBox.Anchor = System.Windows.Forms.AnchorStyles.Right;
       this.mapBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.mapBox.FormattingEnabled = true;
       this.mapBox.Location = new System.Drawing.Point(112, 48);
@@ -95,6 +98,7 @@ namespace ParagonDiscordClient
       // 
       // Forfeit
       // 
+      this.Forfeit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
       this.Forfeit.Enabled = false;
       this.Forfeit.Location = new System.Drawing.Point(200, 112);
       this.Forfeit.Name = "Forfeit";
@@ -105,6 +109,7 @@ namespace ParagonDiscordClient
       // 
       // loopCheck
       // 
+      this.loopCheck.Anchor = System.Windows.Forms.AnchorStyles.Left;
       this.loopCheck.AutoSize = true;
       this.loopCheck.Location = new System.Drawing.Point(8, 80);
       this.loopCheck.Name = "loopCheck";
@@ -113,11 +118,39 @@ namespace ParagonDiscordClient
       this.loopCheck.Text = "Auto Queue";
       this.loopCheck.UseVisualStyleBackColor = true;
       // 
+      // partyBox
+      // 
+      this.partyBox.Anchor = System.Windows.Forms.AnchorStyles.Right;
+      this.partyBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.partyBox.FormattingEnabled = true;
+      this.partyBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+      this.partyBox.Location = new System.Drawing.Point(200, 80);
+      this.partyBox.Name = "partyBox";
+      this.partyBox.Size = new System.Drawing.Size(32, 21);
+      this.partyBox.TabIndex = 7;
+      // 
+      // partyLabel
+      // 
+      this.partyLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
+      this.partyLabel.AutoSize = true;
+      this.partyLabel.Location = new System.Drawing.Point(136, 84);
+      this.partyLabel.Name = "partyLabel";
+      this.partyLabel.Size = new System.Drawing.Size(54, 13);
+      this.partyLabel.TabIndex = 8;
+      this.partyLabel.Text = "Party Size";
+      // 
       // PlayParagonForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(244, 141);
+      this.Controls.Add(this.partyLabel);
+      this.Controls.Add(this.partyBox);
       this.Controls.Add(this.loopCheck);
       this.Controls.Add(this.Forfeit);
       this.Controls.Add(this.Play);
@@ -126,16 +159,14 @@ namespace ParagonDiscordClient
       this.Controls.Add(this.mapBox);
       this.Controls.Add(this.heroBox);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-      this.MaximumSize = new System.Drawing.Size(260, 180);
       this.MinimumSize = new System.Drawing.Size(260, 180);
+      this.MaximumSize = new System.Drawing.Size(260, 180);
       this.Name = "PlayParagonForm";
       this.Text = "Play Paragon";
       this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PlayParagonForm_FormClosed);
       this.ResumeLayout(false);
       this.PerformLayout();
-
     }
-
     #endregion
     private Label heroLabel;
     private Label mapLabel;
@@ -144,6 +175,8 @@ namespace ParagonDiscordClient
     private ComboBox mapBox;
     private Button Forfeit;
     private CheckBox loopCheck;
+    private ComboBox partyBox;
+    private Label partyLabel;
   }
 }
 
