@@ -51,8 +51,11 @@ namespace ParagonDiscordClient
       DisablePlay();
       do
       {
+        // 45000
         await EnterQueue(45000);
+        // 30000
         await EnterDraft(30000);
+        // between 1500000 and 2100000
         await EnterMatch(rng.Next(1500000, 2100000), map.Key, map.Value, hero.Key, hero.Value);
         EnterMenu();
         // Requeue/match ending delay
