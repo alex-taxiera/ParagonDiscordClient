@@ -84,6 +84,7 @@ namespace ParagonDiscordClient
     // GAME WORKFLOW //
     private void EnterMenu()
     {
+      current.Timestamps.Start = null; // clear any timestamps from previous matches
       current.Details = "In Menus";
       current.Assets = menuAssets;
       client.SetPresence(BuildPresence());
@@ -112,10 +113,7 @@ namespace ParagonDiscordClient
         SmallImageKey = heroKey,
         SmallImageText = "Playing as " + heroText
       };
-      current.Timestamps = new Timestamps()
-      {
-        Start = DateTime.UtcNow
-      };
+      current.Timestamps.Start = DateTime.UtcNow;
       client.SetPresence(BuildPresence());
       playing = true;
       EnableForfeit();
