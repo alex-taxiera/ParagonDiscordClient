@@ -84,7 +84,6 @@ namespace ParagonDiscordClient
     // GAME WORKFLOW //
     private void EnterMenu()
     {
-      current.Timestamps.Start = null; // clear any timestamps from previous matches
       current.Details = "In Menus";
       current.Assets = menuAssets;
       client.SetPresence(BuildPresence());
@@ -123,6 +122,7 @@ namespace ParagonDiscordClient
         await Task.Delay(1000);
       }
       DisableForfeit();
+      current.Timestamps.Start = null; // clear match time
     }
     // END GAME WORKFLOW //
 
